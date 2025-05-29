@@ -19,6 +19,7 @@ export default function AirportList() {
         .from("airports")
         .select("*")
         .order("icao");
+
       if (error) {
         console.log("Error fetching airports", error.message);
       } else {
@@ -30,7 +31,7 @@ export default function AirportList() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gray-100 p-8 text-black">
       <h1 className="text-2xl font-bold mb-6">Airport List</h1>
       {loading ? (
         <p>Loading airports...</p>

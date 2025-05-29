@@ -38,7 +38,7 @@ export default function AircraftList() {
 
   //return this template that gets rendered
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gray-100 p-8 text-black">
       <h1 className="text-2xl font-bold mb-6">Aircraft List</h1>
       {loading ? (
         <p>Loading aircraft...</p>
