@@ -43,8 +43,6 @@ export default function HomePage() {
             </p>
           </Link>
         </div>
-
-
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabase";
 
 type Airport = {
   icao: string;
+  name: string;
 };
 
 export default function AddAircraftPage() {
@@ -20,7 +21,7 @@ export default function AddAircraftPage() {
     const fetchAirports = async () => {
       const { data, error } = await supabase
         .from("airports")
-        .select("icao")
+        .select("icao, name")
         .order("icao");
 
       if (error) {
@@ -86,7 +87,7 @@ export default function AddAircraftPage() {
                 <input
                   value={tailNumber}
                   onChange={(e) => setTailNumber(e.target.value.toUpperCase())}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900 placeholder-gray-400"
                   placeholder="e.g., N12345"
                   required
                 />
@@ -99,13 +100,19 @@ export default function AddAircraftPage() {
                 <select
                   value={currentIcao}
                   onChange={(e) => setCurrentIcao(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900"
                   required
                 >
-                  <option value="">Select Airport</option>
+                  <option value="" className="text-gray-400">
+                    Select Airport
+                  </option>
                   {airports.map((ap) => (
-                    <option key={ap.icao} value={ap.icao}>
-                      {ap.icao}
+                    <option
+                      key={ap.icao}
+                      value={ap.icao}
+                      className="text-gray-900"
+                    >
+                      {ap.icao} ({ap.name})
                     </option>
                   ))}
                 </select>
@@ -118,13 +125,19 @@ export default function AddAircraftPage() {
                 <select
                   value={nextLegIcao}
                   onChange={(e) => setNextLegIcao(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-gray-900"
                   required
                 >
-                  <option value="">Select Airport</option>
+                  <option value="" className="text-gray-400">
+                    Select Airport
+                  </option>
                   {airports.map((ap) => (
-                    <option key={ap.icao} value={ap.icao}>
-                      {ap.icao}
+                    <option
+                      key={ap.icao}
+                      value={ap.icao}
+                      className="text-gray-900"
+                    >
+                      {ap.icao} ({ap.name})
                     </option>
                   ))}
                 </select>

@@ -12,6 +12,7 @@ type Aircraft = {
 
 type Airport = {
   icao: string;
+  name: string;
   lat: number;
   lon: number;
 };
@@ -34,7 +35,7 @@ export default function MatchesPage() {
 
       const { data: airportData, error: airportError } = await supabase
         .from("airports")
-        .select("icao, lat, lon");
+        .select("icao, name, lat, lon");
 
       if (airportError) {
         console.error("Error fetching airports:", airportError.message);
@@ -164,9 +165,15 @@ export default function MatchesPage() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {ac.current_icao}
+                          <span className="text-gray-400 ml-1">
+                            ({from.name})
+                          </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {ac.next_leg_icao}
+                          <span className="text-gray-400 ml-1">
+                            ({to.name})
+                          </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {distance.toFixed(1)} km
@@ -185,7 +192,10 @@ export default function MatchesPage() {
                                 >
                                   {ap.icao}
                                   <span className="ml-1 text-blue-600">
-                                    ({ap.dist.toFixed(0)}km)
+                                    ({ap.name})
+                                  </span>
+                                  <span className="ml-1 text-blue-600">
+                                    {ap.dist.toFixed(0)}km
                                   </span>
                                 </span>
                               ))}
