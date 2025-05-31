@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { calculateDistance } from "@/lib/geo";
+import { useRouter } from "next/router";
 
 type Aircraft = {
   id: string;
@@ -19,6 +20,7 @@ export default function MatchesPage() {
   const [aircraft, setAircraft] = useState<Aircraft[]>([]);
   const [airports, setAirports] = useState<Airport[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +51,14 @@ export default function MatchesPage() {
   return (
     <div className="min-h-screen p-8 bg-gray-100 text-black">
       <h1 className="text-2xl font-bold mb-6">Empty Leg Route Matches</h1>
+      <div className="mb-4">
+        <button
+          onClick={() => router.push("/")}
+          className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition"
+        >
+          ← Back to Home
+        </button>
+      </div>
 
       {loading ? (
         <p>Loading...</p>
@@ -69,9 +79,6 @@ export default function MatchesPage() {
               const to = airports.find((ap) => ap.icao === ac.next_leg_icao);
 
               if (!from || !to) return null;
-              // Midpoint latitude and longitude
-              const midLat = (from.lat + to.lat) / 2;
-              const midLon = (from.lon + to.lon) / 2;
 
               const distance = calculateDistance(
                 from.lat,
@@ -79,15 +86,28 @@ export default function MatchesPage() {
                 to.lat,
                 to.lon
               );
-              const detourAirports = airports.filter((airport) => {
-                const d = calculateDistance(
-                  midLat,
-                  midLon,
-                  airport.lat,
-                  airport.lon
-                );
-                return d < 300;
-              });
+
+              const midLat = (from.lat + to.lat) / 2;
+              const midLon = (from.lon + to.lon) / 2;
+
+              // Find detour airports near the midpoint (< 300 km)
+              const detourAirports = airports
+                .map((airport) => ({
+                  ...airport,
+                  dist: calculateDistance(
+                    midLat,
+                    midLon,
+                    airport.lat,
+                    airport.lon
+                  ),
+                }))
+                .filter(
+                  (a) =>
+                    a.dist < 300 &&
+                    a.icao !== ac.current_icao &&
+                    a.icao !== ac.next_leg_icao
+                )
+                .sort((a, b) => a.dist - b.dist);
 
 
               return (
