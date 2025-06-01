@@ -10,6 +10,7 @@ type Aircraft = {
   tail_number: string;
   current_icao: string;
   next_leg_icao: string;
+  user_id: string;
 };
 
 type Airport = {
@@ -25,13 +26,12 @@ export default function MatchesPage() {
   const [aircraft, setAircraft] = useState<Aircraft[]>([]);
   const [airports, setAirports] = useState<Airport[]>([]);
   const [loading, setLoading] = useState(true);
-  const [hoveredRow, setHoveredRow] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const { data: aircraftData, error: aircraftError } = await supabase
         .from("aircraft")
-        .select("id, tail_number, current_icao, next_leg_icao")
+        .select("id, tail_number, current_icao, next_leg_icao, user_id")
         .eq("user_id", user?.id);
 
       if (aircraftError) {
@@ -201,8 +201,6 @@ export default function MatchesPage() {
                         <tr
                           key={ac.id}
                           className="hover:bg-slate-700/50 transition-all duration-300 transform hover:scale-[1.01] hover:shadow-lg"
-                          onMouseEnter={() => setHoveredRow(ac.id)}
-                          onMouseLeave={() => setHoveredRow(null)}
                         >
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
                             <span className="inline-flex items-center">
