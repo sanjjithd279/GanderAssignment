@@ -32,55 +32,125 @@ export default function HomePage() {
 
   if (user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 p-8">
-        <div className="max-w-4xl mx-auto relative">
-          <button
-            onClick={signOut}
-            className="absolute right-0 top-0 group flex items-center gap-2 bg-red-500/10 text-red-300 px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-red-500/20 border border-red-500/20 hover:border-red-400/40 hover:scale-105 active:scale-95"
-          >
-            <span className="group-hover:text-red-200 transition-colors duration-300">
-              Sign Out
-            </span>
-          </button>
-
-          <div className="text-center mb-16">
-            <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 animate-gradient-x">
-              Empty Leg Optimizer
-            </h1>
-            <p className="text-lg text-indigo-200 max-w-2xl mx-auto mt-4">
-              Optimize your aircraft routes and find potential detour
-              opportunities to maximize efficiency and reduce empty leg flights.
-            </p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
+        {/* Hero Section */}
+        <div className="relative overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute -top-40 -right-40 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl animate-pulse"></div>
+            <div
+              className="absolute -bottom-40 -left-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"
+              style={{ animationDelay: "1s" }}
+            ></div>
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-3xl animate-pulse"
+              style={{ animationDelay: "0.5s" }}
+            ></div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            <Link
-              href="/add"
-              className="group bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-indigo-500/20 hover:border-indigo-400/40"
-            >
-              <div className="text-4xl mb-4">✈️</div>
-              <h2 className="text-2xl font-semibold mb-2 text-white group-hover:text-blue-400 transition-colors">
-                Add Aircraft
-              </h2>
-              <p className="text-indigo-200">
-                Register new aircraft and their routes to start optimizing your
-                flight paths.
-              </p>
-            </Link>
+          <div className="relative max-w-7xl mx-auto px-8 pt-20 pb-32">
+            <div className="flex justify-between items-center mb-20">
+              <h1 className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 animate-gradient-x">
+                Empty Leg Optimizer
+              </h1>
+              <button
+                onClick={signOut}
+                className="group flex items-center gap-2 bg-red-500/10 text-red-300 px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-red-500/20 border border-red-500/20 hover:border-red-400/40 hover:scale-105 active:scale-95"
+              >
+                <span className="group-hover:text-red-200 transition-colors duration-300">
+                  Sign Out
+                </span>
+              </button>
+            </div>
 
-            <Link
-              href="/matches"
-              className="group bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-indigo-500/20 hover:border-indigo-400/40"
-            >
-              <div className="text-4xl mb-4">📊</div>
-              <h2 className="text-2xl font-semibold mb-2 text-white group-hover:text-emerald-400 transition-colors">
-                View Routes
+            <div className="max-w-3xl">
+              <h2 className="text-4xl font-bold text-white mb-6">
+                Optimize Your Aircraft Routes
               </h2>
-              <p className="text-indigo-200">
-                Explore current routes and discover potential detour
-                opportunities to optimize your flights.
+              <p className="text-xl text-indigo-200 mb-12">
+                Transform empty leg flights into revenue opportunities. Our
+                platform helps you identify detour possibilities, reduce costs,
+                and maximize aircraft utilization.
               </p>
-            </Link>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="grid md:grid-cols-2 gap-8 mt-16">
+              <Link
+                href="/add"
+                className="group bg-gradient-to-br from-blue-500/20 to-indigo-500/20 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-500/20 hover:border-blue-400/40"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="text-5xl">✈️</div>
+                  <div>
+                    <h2 className="text-2xl font-semibold text-white group-hover:text-blue-400 transition-colors">
+                      Add Aircraft
+                    </h2>
+                    <p className="text-lg text-indigo-200 mt-2">
+                      Register new aircraft and routes
+                    </p>
+                  </div>
+                </div>
+              </Link>
+
+              <Link
+                href="/matches"
+                className="group bg-gradient-to-br from-emerald-500/20 to-teal-500/20 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-emerald-500/20 hover:border-emerald-400/40"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="text-5xl">📊</div>
+                  <div>
+                    <h2 className="text-2xl font-semibold text-white group-hover:text-emerald-400 transition-colors">
+                      View Routes
+                    </h2>
+                    <p className="text-lg text-indigo-200 mt-2">
+                      Explore and optimize flight paths
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-8 pb-20">
+          {/* Features Section */}
+          <div className="mb-20">
+            <h3 className="text-2xl font-semibold text-white mb-8">
+              Key Features
+            </h3>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm p-8 rounded-2xl border border-indigo-500/20">
+                <div className="text-4xl mb-4">🎯</div>
+                <h4 className="text-xl font-semibold text-white mb-3">
+                  Smart Route Optimization
+                </h4>
+                <p className="text-indigo-200">
+                  Identify potential detour opportunities during empty leg
+                  flights to maximize efficiency.
+                </p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm p-8 rounded-2xl border border-indigo-500/20">
+                <div className="text-4xl mb-4">💰</div>
+                <h4 className="text-xl font-semibold text-white mb-3">
+                  Revenue Generation
+                </h4>
+                <p className="text-indigo-200">
+                  Transform empty flights into revenue opportunities through
+                  strategic route planning.
+                </p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm p-8 rounded-2xl border border-indigo-500/20">
+                <div className="text-4xl mb-4">🌍</div>
+                <h4 className="text-xl font-semibold text-white mb-3">
+                  Environmental Impact
+                </h4>
+                <p className="text-indigo-200">
+                  Reduce fuel consumption and emissions through optimized flight
+                  paths.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
